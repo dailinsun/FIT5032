@@ -20,6 +20,10 @@ namespace ChineseBridge.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Campus> Campuses { get; set; }
+        public DbSet<Classtype> Classtypes { get; set; }
+        public DbSet<ClassinCampus> ClassinCampuses { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

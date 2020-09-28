@@ -1,0 +1,43 @@
+﻿@model ChineseBridge.Models.ClassinCampus
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ClassinCampus</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Campus.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Campus.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Classtype.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classtype.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

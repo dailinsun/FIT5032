@@ -22,9 +22,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("关于", "About", "Home")</li>
-                    <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("主页Homepage", "Index", "Home")</li>
+                    <li>@Html.ActionLink("关于About", "About", "Home")</li>
+                    <li>@Html.ActionLink("联系方式Connect", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("校区Campus", "Index", "Campus")</li>
+                    <li>@Html.ActionLink("课程Class", "Index", "Classtypes")</li>
+                    <li>@Html.ActionLink("添加课程Add Class", "Index", "ClassinCampus")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
