@@ -10,112 +10,112 @@ using ChineseBridge.Models;
 
 namespace ChineseBridge.Controllers
 {
-    public class CampusController : Controller
+    public class BooksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        // GET: Books
         public ActionResult Index()
         {
-            if (User.IsInRole("Headmaster"))
-            {
-                return View(db.Campuses.ToList());
-            }
-            else
-            {
-                return View("CustomerIndex", db.Campuses.ToList());
-            }
+            var books = db.Books.Include(b => b.Campus);
+            return View(books.ToList());
         }
 
-        // GET: Campus/Details/5
+        // GET: Books/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Campus campus = db.Campuses.Find(id);
-            if (campus == null)
+            Book book = db.Books.Find(id);
+            if (book == null)
             {
                 return HttpNotFound();
             }
-            return View(campus);
+            return View(book);
         }
 
-        // GET: Campus/Create
+        // GET: Books/Create
         public ActionResult Create()
         {
+            ViewBag.CampusId = new SelectList(db.Campuses, "Id", "Name");
             return View();
         }
 
-        // POST: Campus/Create
+        // POST: Books/Create
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性；有关
         // 更多详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,headmaster,address")] Campus campus)
+        public ActionResult Create([Bind(Include = "Id,Author,Name,CampusId,Status")] Book book)
         {
             if (ModelState.IsValid)
             {
-                db.Campuses.Add(campus);
+                db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(campus);
+            ViewBag.CampusId = new SelectList(db.Campuses, "Id", "Name", book.CampusId);
+            return View(book);
         }
 
-        // GET: Campus/Edit/5
+        // GET: Books/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Campus campus = db.Campuses.Find(id);
-            if (campus == null)
+            Book book = db.Books.Find(id);
+            if (book == null)
             {
                 return HttpNotFound();
             }
-            return View(campus);
+            ViewBag.CampusId = new SelectList(db.Campuses, "Id", "Name", book.CampusId);
+            return View(book);
         }
 
-        // POST: Campus/Edit/5
+        // POST: Books/Edit/5
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性；有关
         // 更多详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,headmaster,address")] Campus campus)
+        public ActionResult Edit([Bind(Include = "Id,Author,Name,CampusId,Status")] Book book)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(campus).State = EntityState.Modified;
+                db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(campus);
+            ViewBag.CampusId = new SelectList(db.Campuses, "Id", "Name", book.CampusId);
+            return View(book);
         }
 
-        // GET: Campus/Delete/5
+        // GET: Books/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Campus campus = db.Campuses.Find(id);
-            if (campus == null)
+            Book book = db.Books.Find(id);
+            if (book == null)
             {
                 return HttpNotFound();
             }
-            return View(campus);
+            return View(book);
         }
 
-        // POST: Campus/Delete/5
+        // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Campus campus = db.Campuses.Find(id);
-            db.Campuses.Remove(campus);
+            Book book = db.Books.Find(id);
+            db.Books.Remove(book);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

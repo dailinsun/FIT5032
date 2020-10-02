@@ -54,15 +54,15 @@ namespace ChineseBridge
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "340689937164842",
+               appSecret: "a24baacbafbe3b944036d2e984ba34f0");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "565902585990-0vfctai3l6i1sgb1ude2oc7km5d9cj94.apps.googleusercontent.com",
+                ClientSecret = "ikKfJbMftJ0u7_a-DHlRnsi-"
+            });
         }
     }
 }
