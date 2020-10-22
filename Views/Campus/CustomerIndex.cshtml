@@ -4,10 +4,45 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaDpATkYS8x-m8BMjcWHUMNLxs6k4K-Ng&callback=initMap&libraries=places&v=weekly"defer></script>
+
+<style>
+    #map{
+        height: 600px;
+    }
+    #floating-panel {
+        position: absolute;
+        top: 110px;
+        left: 40%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: "Roboto", "sans-serif";
+        line-height: 30px;
+        padding-left: 10px;
+    }
+</style>
 
 <h2>Index</h2>
 
+<div id="floating-panel">
+    <lable for="start"><b>Start: </b></lable>
+    <input id="start" type="text" placeholder="Enter your Location">
+    <lable for="end"><b>End: </b></lable>
+    <select id="end">
+        @foreach (var item in Model)
+        {
+            <option value="@item.address">@item.Name</option>
+        }
 
+    </select>
+    <button id="get-direction">Get Direction</button>
+</div>
+
+<div id="map"></div>
 <table class="table">
     <tr>
         <th>
@@ -22,21 +57,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.headmaster)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.address)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.headmaster)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+<script src="~/Scripts/map.js"></script>

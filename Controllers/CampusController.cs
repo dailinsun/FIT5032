@@ -120,6 +120,11 @@ namespace ChineseBridge.Controllers
             return RedirectToAction("Index");
         }
 
+        public JsonResult GetCampuses()
+        {
+            var campuses = db.Campuses.ToList();
+            return new JsonResult { Data = campuses, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
