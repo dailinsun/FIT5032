@@ -24,7 +24,15 @@ namespace ChineseBridge.Controllers
 
         public ActionResult Index()
         {
-            return View();
+
+            if (User.IsInRole("Headmaster"))
+            {
+                return View();
+            }
+            else
+            {
+                return View("CustomerIndex");
+            }
         }
 
         // GET

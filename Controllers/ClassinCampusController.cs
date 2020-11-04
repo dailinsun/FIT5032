@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ChineseBridge.Models;
+using ChineseBridge.Utils;
 
 namespace ChineseBridge.Controllers
 {
@@ -89,9 +90,25 @@ namespace ChineseBridge.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var bookevents = db.BookEvents.Include(be => be.ApplicationUser).Where(be => be.ClassinCampus.Id == classinCampus.Id).ToList();
+                List<string> emailAdd = new List<string>();
+                for (int i = 0; i < bookevents.Count; i++)
+                {
+                    emailAdd.Add(bookevents[i].ApplicationUser.Email);
+                    System.Diagnostics.Debug.Write(bookevents[i].ApplicationUser.Email);
+                }
+
+                string subject = "Change of event";
+                string content = "Event change";
+
+                EmailSender es = new EmailSender();
+                es.SendMultiple(emailAdd, subject, content);
+
                 db.Entry(classinCampus).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
             ViewBag.CampusId = new SelectList(db.Campuses, "Id", "Name", classinCampus.CampusId);
             ViewBag.ClasstypeId = new SelectList(db.Classtypes, "Id", "Name", classinCampus.ClasstypeId);
@@ -123,7 +140,21 @@ namespace ChineseBridge.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        //GET ID of Campus
+        public ActionResult ClassesbyCampus(int Id)
+            //Campus ID
+        {
+            ViewBag.Campus = db.Campuses.FirstOrDefault(b => b.Id == Id);
+            var ClassinCampus = db.ClassinCampuses.Include(be => be.Campus).Include(be => be.Classtype).Where(be => be.CampusId ==Id).ToList();
+            return View(ClassinCampus);
+        }
 
+        public JsonResult GetClassesbyCampus(int Id)
+        //Campus ID
+        {
+            var ClassinCampus = db.ClassinCampuses.Include(be => be.Campus).Include(be => be.Classtype).Where(be => be.CampusId == Id).ToList();
+            return new JsonResult { Data = ClassinCampus, JsonRequestBehavior = JsonRequestBehavior.AllowGet};
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

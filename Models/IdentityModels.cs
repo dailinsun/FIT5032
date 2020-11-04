@@ -24,6 +24,7 @@ namespace ChineseBridge.Models
         public DbSet<Classtype> Classtypes { get; set; }
         public DbSet<ClassinCampus> ClassinCampuses { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<BookEvent> BookEvents { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

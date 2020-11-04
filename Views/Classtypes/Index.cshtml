@@ -4,55 +4,117 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
 <h2>Index</h2>
-
+<canvas id="myChart" width="400" height="200"></canvas>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Color)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Teacher)
-        </th>
-        <th></th>
-    </tr>
+<table class="table" id="bootstraptable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teacher)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    <img src="~/Content/image/Class/@item.Image" alt="@item.Name" style="width:200px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
-            <img src="~/Content/image/Class/@item.Image" alt="@item.Name" style="width:200px;"/>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Teacher)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#bootstraptable").DataTable();
+        })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
+    <script>
+        var ctx = document.getElementById('myChart');
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://localhost:44319/BookEvent/Analysis", false);
+        xhr.send();
+        var results = JSON.parse(xhr.responseText);
+        console.log(results);
+        var labels = []; // x, event name
+        var data = []; // y, count()
+        for (var i = 0; i < results.length; i++) {
+            labels.push(results[i].Event.Name);
+            data.push(results[i].Count);
+        }
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Students Booking now",// one branch, count () for each eventType
+                    data: data,
+                    backgroundColor: ["rgba(255,0,0,0.1)", "rgba(0,255,0,0.1)", "rgba(0,0,255,0.1)", "rgba(255,0,0,0.1)"],
+                    hoverBackgroundColor: ["rgba(255,0,0,0.3)", "rgba(0,255,0,0.3)", "rgba(0,0,255,0.3)", "rgba(255,0,0,0.3)"],
+                    borderColor: ["rgba(255,0,0,0.5)", "rgba(0,255,0,0.5)", "rgba(0,0,255,0.5)", "rgba(255,0,0,0.5)"],
+                    hoverBorderColor: ["rgba(255,0,0,0.7)", "rgba(0,255,0,0.7)", "rgba(0,0,255,0.7)", "rgba(255,0,0,0.7)"]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Students Booking now",
+                    fontSize: 16,
+                },
+                legend: {
+                    lables: {
+                        display: false,
+                    }
+                },
+                    scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    </script>
+
 }
 
-</table>

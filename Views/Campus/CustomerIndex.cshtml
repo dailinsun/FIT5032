@@ -24,6 +24,34 @@
         line-height: 30px;
         padding-left: 10px;
     }
+    #right-panel {
+        font-family: "Roboto", "sans-serif";
+        line-height: 30px;
+        padding-left: 10px;
+        max-height: 600px;
+    }
+
+        #right-panel select,
+        #right-panel input {
+            font-size: 15px;
+        }
+
+        #right-panel select {
+            width: 100%;
+        }
+
+        #right-panel i {
+            font-size: 12px;
+        }
+
+    #right-panel {
+        height: 100%;
+        float: right;
+        width: 390px;
+        overflow: auto;
+    }
+
+
 </style>
 
 <h2>Index</h2>
@@ -39,10 +67,20 @@
         }
 
     </select>
+    <div>
+        <lable for="mode"><b>Mode of Travel: </b></lable>
+        <select id="mode">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+        </select>
+    </div>
     <button id="get-direction">Get Direction</button>
 </div>
-
+<div id="right-panel"></div>
 <div id="map"></div>
+
 <table class="table">
     <tr>
         <th>

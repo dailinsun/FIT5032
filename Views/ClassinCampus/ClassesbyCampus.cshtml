@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ChineseBridge.Models.ClassinCampus>
+
+@{
+    ViewBag.Title = "ClassesbyCampus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Campus = ViewBag.Campus;
+}
+
+<h2>ClassesbyCampus</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2 id="eventName"></h2>
+        <p id="eventDesc"></p>
+        <h3 id="startTime"></h3>
+        <a id="bookLink"></a>
+    </div>
+    <div class="col-md-8" id="calendar"></div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Campus.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classtype.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Campus.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Classtype.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+@section scripts{
+    <script src="~/Scripts/Calendar.js"></script>
+    <script>
+        $(document).ready(function () {
+            var events = [];
+
+            $.ajax({
+                type: "GET",
+                url: "/ClassinCampus/GetClassesbyCampus/@Campus.Id",
+                success: function (data) {
+                    console.log(data);
+                    $.each(data, function (i, v) {
+                        events.push({
+                            eventId: v.Id,
+                            title: v.Classtype.Name,
+                            description: v.Classtype.Description,
+                            start: moment(v.StartTime),
+                            color: v.Classtype.Color
+                        })
+                    });
+                    generateCalendar(events);
+                },
+                error: function (error) {
+                    alert("failed");
+                }
+            })
+        })
+    </script>
+    }

@@ -39,6 +39,7 @@ function initMap() {
 
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setPanel(document.getElementById("right-panel"));
     directionsRenderer.setMap(map);
     var getDirection = document.getElementById("get-direction");
     getDirection.addEventListener("click", function () {
@@ -66,9 +67,10 @@ function geodocAddress(geocoder, map, Campus) {
 
     geocoder.geocode({ address: Campus.address }, function (result, status) {
         if (status === "OK") {
-            let marker = new google.maps.Marker({
+            var marker = new google.maps.Marker({
                 map: map,
-                position: result[0].geometry.location
+                position: result[0].geometry.location,
+                icon: "https://localhost:44319//Content/image/logo/smalllogo.png"
             });
             marker.addListener("click", function () {
                 infowindow.open(map, marker);
@@ -80,6 +82,7 @@ function geodocAddress(geocoder, map, Campus) {
 
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    var mode = document.getElementById("mode");
     directionsService.route(
         {
             origin: {
@@ -88,7 +91,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
             destination: {
                 query: document.getElementById("end").value,
             },
-            travelMode: google.maps.TravelMode.DRIVING,
+            travelMode: google.maps.TravelMode[mode.value],
         },
         (response, status) => {
             if (status === "OK") {

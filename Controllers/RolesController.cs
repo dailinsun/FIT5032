@@ -10,11 +10,19 @@ namespace ChineseBridge.Controllers
     public class RolesController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
-        [Authorize(Roles ="Headmaster")]
+        [Authorize]
         public ActionResult Index()
         {
             var roles = context.Roles.ToList();
-            return View(roles);
+            if (User.IsInRole("Headmaster"))
+            {
+                return View(roles);
+            }
+            else
+            {
+                return View("CustomerIndex");
+            }
+            
 
         }
         public ActionResult Create()

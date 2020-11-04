@@ -17,7 +17,15 @@ namespace ChineseBridge.Controllers
         // GET: Classtypes
         public ActionResult Index()
         {
-            return View(db.Classtypes.ToList());
+            if (User.IsInRole("Headmaster"))
+            {
+                return View(db.Classtypes.ToList());
+            }
+            else
+            {
+                return View("CustomerIndex", db.Classtypes.ToList());
+            }
+                
         }
 
         // GET: Classtypes/Details/5
