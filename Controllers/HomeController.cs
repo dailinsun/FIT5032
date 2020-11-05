@@ -10,6 +10,10 @@ namespace ChineseBridge.Controllers
     {
         public ActionResult Index()
         {
+            if (User.IsInRole("Headmaster"))
+            {
+                return View("IndexAdmin");
+            }
             return View();
         }
 

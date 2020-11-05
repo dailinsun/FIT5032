@@ -77,7 +77,7 @@
         var labels = []; // x, event name
         var data = []; // y, count()
         for (var i = 0; i < results.length; i++) {
-            labels.push(results[i].Event.Name);
+            labels.push(results[i].Campus.Name);
             data.push(results[i].Count);
         }
         var myChart = new Chart(ctx, {
@@ -100,9 +100,8 @@
                     fontSize: 16,
                 },
                 legend: {
-                    lables: {
                         display: false,
-                    }
+                    
                 },
                     scales: {
                     yAxes: [{

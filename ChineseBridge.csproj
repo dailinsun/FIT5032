@@ -239,6 +239,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\main.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\jquery.scrollex.min.js" />
+    <Content Include="assets\js\jquery.scrolly.min.js" />
+    <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\skel.min.js" />
+    <Content Include="assets\js\util.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -408,9 +417,10 @@
     <Content Include="Content\image\Class\reading.jpg" />
     <Content Include="Content\image\Class\speaking.jpg" />
     <Content Include="Content\image\Class\writing.jpg" />
-    <Content Include="Content\image\logo\logo with name.png" />
+    <Content Include="Content\image\logo\logowithname.png" />
     <Content Include="Content\image\logo\logo.png" />
     <Content Include="Content\image\logo\smalllogo.png" />
+    <Content Include="Content\image\others\bg_1.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -421,6 +431,11 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Calendar.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
@@ -675,6 +690,8 @@
     <Content Include="Views\Books\CustomerIndex.cshtml" />
     <Content Include="Views\Roles\CustomerIndex.cshtml" />
     <Content Include="Views\UserRoles\CustomerIndex.cshtml" />
+    <Content Include="Views\Home\IndexAdmin.cshtml" />
+    <Content Include="Views\ClassinCampus\CustomerIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -26,16 +26,16 @@
                     <li>@Html.ActionLink("课程Class", "Index", "Classtypes")</li>
                     <li>@Html.ActionLink("课程表Timetable", "Index", "ClassinCampus")</li>
                     <li>@Html.ActionLink("图书馆Library", "Index", "Books")</li>
-                    <li>@Html.ActionLink("用户类型Roles", "Index", "Roles")</li>
-                    <li>@Html.ActionLink("用户分配User role assignment", "Index", "UserRoles")</li>
+                    @*<li>@Html.ActionLink("用户类型Roles", "Index", "Roles")</li>
+                    <li>@Html.ActionLink("用户分配User role assignment", "Index", "UserRoles")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
+
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Chinese Bridge Welcome You</p>
         </footer>

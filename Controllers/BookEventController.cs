@@ -56,13 +56,13 @@ namespace ChineseBridge.Controllers
 
             // eventType     count()
 
-            var bookPerEvent =
+            var bookPerCampus =
                 from bookEvent in bookEvents
-                group bookEvent by bookEvent.ClassinCampus.Classtype into bookGroup
+                group bookEvent by bookEvent.ClassinCampus.Campus into bookGroup
 
                 select new
                 {
-                    Event = bookGroup.Key,
+                    Campus = bookGroup.Key,
                     Count = bookGroup.Count()
                 };
 
@@ -77,7 +77,7 @@ namespace ChineseBridge.Controllers
 
             //return new JsonResult { Data = bookPerEvent, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-            return new JsonResult { Data = bookPerBranchEvent, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult { Data = bookPerCampus, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

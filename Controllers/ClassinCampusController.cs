@@ -19,7 +19,15 @@ namespace ChineseBridge.Controllers
         public ActionResult Index()
         {
             var classinCampuses = db.ClassinCampuses.Include(c => c.Campus).Include(c => c.Classtype);
-            return View(classinCampuses.ToList());
+            
+            if (User.IsInRole("Headmaster"))
+            {
+                return View(classinCampuses.ToList());
+            }
+            else
+            {
+                return View("CustomerIndex", classinCampuses.ToList());
+            }
         }
 
         // GET: ClassinCampus/Details/5

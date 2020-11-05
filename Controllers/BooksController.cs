@@ -18,7 +18,7 @@ namespace ChineseBridge.Controllers
         public ActionResult Index()
         {
             var books = db.Books.Include(b => b.Campus);
-            if (User.IsInRole("Headmaster, Teacher"))
+            if (User.IsInRole("Headmaster")|| User.IsInRole("Teacher"))
             {
                 return View(books.ToList());
             }

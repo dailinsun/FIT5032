@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "IndexAdmin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admin Control Panel</h2>
+
+<h2>Manage Roles</h2>
+@Html.ActionLink("用户类型Roles", "Index", "Roles")
+
+
+
+<hr />
+<h2>Manage User Roles</h2>
+@Html.ActionLink("用户分配User role assignment", "Index", "UserRoles")
