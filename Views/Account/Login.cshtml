@@ -1,7 +1,7 @@
 ﻿@using ChineseBridge.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "登录";
+    ViewBag.Title = "Log in";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -11,7 +11,7 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>使用本地帐户登录。</h4>
+                <h4>Using local account</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -38,11 +38,11 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="登录" class="btn btn-default" />
+                        <input type="submit" value="log in" class="btn btn-default" />
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("注册为新用户", "Register")
+                    @Html.ActionLink("Register", "Register")
                 </p>
                 @* 在为密码重置功能启用了帐户确认后，启用此项
                     <p>
